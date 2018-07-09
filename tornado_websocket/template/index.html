@@ -2,9 +2,28 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>聊天室</title>
 </head>
 <body>
-
+    <div id="contents" style="height: 500px;overflow: auto"></div>
+    <div>
+        <textarea id="msg"></textarea>
+        <a href="javascript:" onclick="sendMsg()">发送</a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+//        var ws = new WebSocket("ws://192.168.0.43:12345/");
+//        var ws = new WebSocket("ws://127.0.0.1:8000/chat");
+//        var ws = new WebSocket("wss://192.168.0.68/msg/");
+        var ws = new WebSocket("wss://rtc1.howfun.tv:10082/msg/");
+        ws.onmessage = function(e) {
+            $("#contents").append("<p>" + e.data + "<p>");
+        };
+        function sendMsg() {
+            var msg = $("#msg").val();
+            ws.send(msg);
+            $("#msg").val("");
+        }
+    </script>
 </body>
 </html>

@@ -1,1 +1,1 @@
-__author__ = 'cosmic'
+#encoding:utf
